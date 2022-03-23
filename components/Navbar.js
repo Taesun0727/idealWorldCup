@@ -21,6 +21,7 @@ const Nav = styled.div`
 const Navbar_logo = styled.div`
   font-size: 24px;
   color: red;
+  margin-right: 20px;
 `;
 
 const StyledLink = styled.a`
@@ -84,7 +85,7 @@ const Navbar = () => {
       <Navbar_menu On={ On }>
         <Menu><Link href='/info'><StyledLink>내 정보</StyledLink></Link></Menu>
         <Menu><Link href='/'><StyledLink>내가 즐긴 이상형월드컵</StyledLink></Link></Menu>
-        <Menu><Link href='/'><StyledLink>내 이상형 월드컵</StyledLink></Link></Menu>
+        <Menu><Link href='/myworldcup'><StyledLink>내 이상형 월드컵</StyledLink></Link></Menu>
         <Menu><Link href="/signin"><StyledLink>Login</StyledLink></Link></Menu>
       </Navbar_menu>
       <Tab href='#' onClick={ Toggle }><FontAwesomeIcon icon={faBars} /></Tab>

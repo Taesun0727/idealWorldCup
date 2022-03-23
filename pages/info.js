@@ -31,6 +31,11 @@ const InfoForm = styled.div`
   overflow: hidden;
   height: auto;
   display: block;
+  width: 60%;
+  @media (max-width: 768px) {
+    width: 90%;
+    font-size: 15px;
+  }
 `;
 
 const InfoHead = styled.div`
@@ -39,21 +44,54 @@ const InfoHead = styled.div`
 `;
 
 const InfoBody = styled.div`
+  padding: 0px 20px;
   border-bottom: 1px solid #e9ecef;
+  @media (max-width: 768px) {
+    padding: 0px;
+    margin: 0px;
+  }
 `;
 
 const InfoTail = styled.div`
-margin: 20px;
+  margin: 20px;
+`;
+
+const StyleLabel = styled.label`
+  position: relative;
+  width: 30%;
+  padding-right: 30px;
+  text-align: end;
+  @media (max-width: 768px) {
+    text-align: start;
+    width: 90%;
+    margin-bottom: 10px;
+  }
+`;
+
+const StyleHr = styled.hr`
+  border: 0.5px solid #e9ecef;
 `;
 
 const InputWrap = styled.div`
   display: flex;
   margin: 20px;
   @media (max-width: 768px) {
+    margin: 20px;
     float: left;
     flex-direction: column;
     align-items: center;
-    width: 100%;
+    width: 95%;
+  }
+`;
+
+const StyleInput = styled.input`
+  border: 1px solid #d9d9d9;
+  border-radius: 3px;
+  height: 25px;
+  width: 70%;
+  @media (max-width: 768px) {
+    text-align: start;
+    width: 90%;
   }
 `;
 
@@ -66,27 +104,30 @@ const Info = () => {
         </InfoHead>
         <InfoBody>
           <InputWrap>
-            <label>이메일</label>
-            <div>
-            <input readOnly />
+            <StyleLabel>이메일</StyleLabel>
+            <div style={{width: '100%'}}>
+              <StyleInput readOnly />
             </div>
           </InputWrap>
+          <StyleHr/>
           <InputWrap>
-            <label>닉네임</label>
-            <div>
-            <input></input>
+            <StyleLabel>닉네임</StyleLabel>
+            <div style={{width: '100%'}}>
+              <StyleInput/>
             </div>
           </InputWrap>
+          <StyleHr/>
           <InputWrap>
-            <label>비밀번호</label>
-            <div>
-            <input></input>
+            <StyleLabel>비밀번호</StyleLabel>
+            <div style={{width: '100%'}}>
+              <StyleInput/>
             </div>
           </InputWrap>
+          <StyleHr/>
           <InputWrap>
-            <label>비밀번호확인</label>
-            <div>
-            <input></input>
+            <StyleLabel>비밀번호확인</StyleLabel>
+            <div style={{width: '100%'}}>
+              <StyleInput/>
             </div>
           </InputWrap>
         </InfoBody>
