@@ -82,10 +82,10 @@ const Navbar = () => {
         <StyledLink href="/">SUNNY</StyledLink>
       </Navbar_logo>
       <Navbar_menu On={ On }>
-        <Menu><Link href='/home'><StyledLink>내 정보</StyledLink></Link></Menu>
+        <Menu><Link href='/info'><StyledLink>내 정보</StyledLink></Link></Menu>
         <Menu><Link href='/'><StyledLink>내가 즐긴 이상형월드컵</StyledLink></Link></Menu>
-        <Menu><Link href='/'><StyledLink>내 이상형 월드컵 만들기</StyledLink></Link></Menu>
-        <Menu><Link href="/login"><StyledLink>Login</StyledLink></Link></Menu>
+        <Menu><Link href='/'><StyledLink>내 이상형 월드컵</StyledLink></Link></Menu>
+        <Menu><Link href="/signin"><StyledLink>Login</StyledLink></Link></Menu>
       </Navbar_menu>
       <Tab href='#' onClick={ Toggle }><FontAwesomeIcon icon={faBars} /></Tab>
     </Nav>
