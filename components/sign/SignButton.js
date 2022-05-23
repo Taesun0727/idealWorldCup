@@ -83,7 +83,7 @@ const SignButton = ({children}) => {
     <ContainerLogin>
       <WrapButton>
         <LogButtonForm/>
-        <LogButton htmlType="submit">{children}</LogButton>
+        <LogButton type="submit">{children}</LogButton>
       </WrapButton>
     </ContainerLogin>
 

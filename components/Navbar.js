@@ -1,8 +1,41 @@
+import { useCallback } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSun, faBars } from '@fortawesome/free-solid-svg-icons';
 import Link from 'next/link';
 import styled from 'styled-components';
 import { useState } from 'react'
+import { logoutRequestAction } from '../reducers/user';
+import { useDispatch, useSelector } from 'react-redux';
+
+const Navbar = () => {
+  const dispatch = useDispatch();
+  const [On, setOn] = useState(false);
+  const Toggle = () => {
+    setOn(!On);
+  }
+  const { me, logOutLoading } = useSelector((state) => state.user);
+  const onLogOut = useCallback(() => {
+    dispatch(logoutRequestAction());
+  }, []);
+
+  return (
+    <Nav>
+      <Navbar_logo>
+        <FontAwesomeIcon icon={faSun} />
+        <StyledLink href="/">SUNNY</StyledLink>
+      </Navbar_logo>
+      <Navbar_menu On={ On }>
+        <Menu><Link href='/info'><StyledLink>내 정보</StyledLink></Link></Menu>
+        <Menu><Link href='/'><StyledLink>내가 즐긴 이상형월드컵</StyledLink></Link></Menu>
+        <Menu><Link href='/myworldcup'><StyledLink>내가 만든 이상형 월드컵</StyledLink></Link></Menu>
+      </Navbar_menu>
+      { me ? <StyledLink style={{marginLeft: 'auto'}} onClick={onLogOut}>Logout</StyledLink> : <StyledLink style={{marginLeft: 'auto'}} href="signin">Login</StyledLink>}
+      <Tab href='#' onClick={ Toggle }><FontAwesomeIcon icon={faBars} /></Tab>
+    </Nav>
+  )
+}
+
+export default Navbar;
 
 const Nav = styled.div`
   display: flex;
@@ -69,28 +102,3 @@ const Tab = styled.a`
     display: block;
   }
 `;
-
-const Navbar = () => {
-  const [On, setOn] = useState(false);
-  const Toggle = () => {
-    setOn(!On);
-  }
-
-  return (
-    <Nav>
-      <Navbar_logo>
-        <FontAwesomeIcon icon={faSun} />
-        <StyledLink href="/">SUNNY</StyledLink>
-      </Navbar_logo>
-      <Navbar_menu On={ On }>
-        <Menu><Link href='/info'><StyledLink>내 정보</StyledLink></Link></Menu>
-        <Menu><Link href='/'><StyledLink>내가 즐긴 이상형월드컵</StyledLink></Link></Menu>
-        <Menu><Link href='/myworldcup'><StyledLink>내 이상형 월드컵</StyledLink></Link></Menu>
-        <Menu><Link href="/signin"><StyledLink>Login</StyledLink></Link></Menu>
-      </Navbar_menu>
-      <Tab href='#' onClick={ Toggle }><FontAwesomeIcon icon={faBars} /></Tab>
-    </Nav>
-  )
-}
-
-export default Navbar;

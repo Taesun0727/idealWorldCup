@@ -1,19 +1,71 @@
+import { useEffect } from 'react';
 import AppLayout from "../components/AppLayout"
-import noimg from "../assets/img/noimage.jpg"
 import styled from "styled-components"
-import { AiOutlineSearch, AiFillCaretRight, AiFillEdit, AiOutlineRise } from 'react-icons/ai'
-import { BsFillTrashFill } from 'react-icons/bs'
+import { AiOutlineSearch } from 'react-icons/ai'
 import Link from "next/link"
+import IdealworldcupSection from "../components/IdealworldcupSection"
+import { useDispatch, useSelector } from 'react-redux';
+import Router from 'next/router'
+import { LOAD_POST_REQUEST } from '../reducers/post';
 
-const Title = styled.label`
-  display: block;
-`;
+const myworldcup = () => {
+  const dispatch = useDispatch();
+  const { posts } = useSelector((state) => state.post);
+  const { me } = useSelector((state) => state.user);
 
-const MyworldcupHeader = styled.div`
+  useEffect(() => {
+    if (!me) {
+      alert('로그인이 필요합니다.')
+      Router.replace('/signin');
+    } else {
+    }
+  })
+
+  useEffect(() => {
+    function onScroll() {
+      if (window.pageYOffset + document.documentElement.clientHeight > document.documentElement.scrollHeight - 300) {
+        const lastid = posts[posts.length - 1]?.id;
+        dispatch({
+          type: LOAD_POST_REQUEST,
+          lastid
+        })
+      }
+    }
+    window.addEventListener('scroll', onScroll);
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+    };
+  })
+
+  return (
+    <AppLayout>
+      <MyworldcupHeader>
+        <HeaderDiv1>
+          <PopularSortButton>인기순</PopularSortButton>
+          <RecentSortButton>최신순</RecentSortButton>
+        </HeaderDiv1>
+        <HeaderDiv2>
+          <SearchInput/>
+          <SearchButton><AiOutlineSearch/></SearchButton>
+        </HeaderDiv2>
+        <HeaderDiv3>
+          <StyleLink href='/createworldcup'><WorldcupCreateButton>내 이상형 월드컵 만들기</WorldcupCreateButton></StyleLink>
+        </HeaderDiv3>
+      </MyworldcupHeader>
+      <MyworldcupBody>
+        {/* {posts.map((post) => <IdealworldcupSection key={post.id} post={post}></IdealworldcupSection>)} */}
+      </MyworldcupBody>
+    </AppLayout>
+  )
+}
+
+export default myworldcup;
+
+export const MyworldcupHeader = styled.div`
   margin: 40px 20px;
 `;
 
-const MyworldcupBody = styled.div`
+export const MyworldcupBody = styled.div`
   margin: 20px;
 `;
 
@@ -28,103 +80,68 @@ const Button = styled.button`
   }
 `;
 
-const WorldcupCreateButton = styled(Button)`
-  float: right;
+export const SearchButton = styled(Button)`
+  width: 20%;
 `;
 
-const StyleInput = styled.input`
+const WorldcupCreateButton = styled(Button)`
+  float: right;
+  @media (max-width: 768px) {
+    width: 100%;
+  }
+`;
+
+export const SearchInput = styled.input`
   height: 25px;
-  width: 70%;
+  width: 75%;
 `;
 
 const StyleLink = styled(Link)`
   text-decoration: none;
+  margin-left: auto;
 
   &:focus, &:hover, &:visited, &:link, &:active {
     text-decoration: none;
-}
+  }
 `;
 
-const myworldcup = () => {
-  return (
-    <AppLayout>
-      <MyworldcupHeader>
-        <div style={{display: "inline-block", width: "20%", textAlign: "end"}}>
-          <Button>인기순</Button>
-          <Button>최신순</Button>
-        </div>
-        <div style={{display: "inline-block", width: "50%"}}>
-          <StyleInput/>
-          <Button><AiOutlineSearch/></Button>
-        </div>
-        <div style={{display: "inline-block", width: "30%"}}>
-          <StyleLink href='/'><WorldcupCreateButton>내 이상형 월드컵 만들기</WorldcupCreateButton></StyleLink>
-        </div>
-      </MyworldcupHeader>
-      <MyworldcupBody>
-        <div style={{display: "inline-block", width: "22%"}}>
-          <div>
-            <img src={noimg.src} style={{width: "100%"}}></img>
-          </div>
-          <div style={{background: "white"}}>
-            <Title>타이틀</Title>
-            <label>내용</label>
-            <div>
-              <button><AiFillCaretRight/>시작하기</button>
-              <button><AiOutlineRise/>공유하기</button>
-              <button><AiFillEdit/>수정</button>
-              <button><BsFillTrashFill/>삭제</button>
-            </div>
-          </div>
-        </div>
-        <div style={{display: "inline-block", width: "22%"}}>
-          <div>
-            <img src={noimg.src} style={{width: "100%"}}></img>
-          </div>
-          <div style={{background: "white"}}>
-            <Title>타이틀</Title>
-            <label>내용</label>
-            <div>
-              <button><AiFillCaretRight/>시작하기</button>
-              <button><AiOutlineRise/>공유하기</button>
-              <button><AiFillEdit/>수정</button>
-              <button><BsFillTrashFill/>삭제</button>
-            </div>
-          </div>
-        </div>
-        <div style={{display: "inline-block", width: "22%"}}>
-          <div>
-            <img src={noimg.src} style={{width: "100%"}}></img>
-          </div>
-          <div style={{background: "white"}}>
-            <Title>타이틀</Title>
-            <label>내용</label>
-            <div>
-              <button><AiFillCaretRight/>시작하기</button>
-              <button><AiOutlineRise/>공유하기</button>
-              <button><AiFillEdit/>수정</button>
-              <button><BsFillTrashFill/>삭제</button>
-            </div>
-          </div>
-        </div>
-        <div style={{display: "inline-block", width: "22%"}}>
-          <div>
-            <img src={noimg.src} style={{width: "100%"}}></img>
-          </div>
-          <div style={{background: "white"}}>
-            <Title>타이틀</Title>
-            <label>내용</label>
-            <div>
-              <button><AiFillCaretRight/>시작하기</button>
-              <button><AiOutlineRise/>공유하기</button>
-              <button><AiFillEdit/>수정</button>
-              <button><BsFillTrashFill/>삭제</button>
-            </div>
-          </div>
-        </div>
-      </MyworldcupBody>
-    </AppLayout>
-  )
-}
+const Div = styled.div`
+  display: inline-block;
+`;
 
-export default myworldcup;
+export const HeaderDiv1 = styled(Div)`
+  width: 20%;
+  text-align: end;
+  
+  @media (max-width: 768px) {
+    width: 100%;
+  }
+`;
+
+export const HeaderDiv2 = styled(Div)`
+  width: 50%;
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
+`;
+
+export const HeaderDiv3 = styled(Div)`
+  width: 30%;
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
+`;
+
+export const PopularSortButton = styled(Button)`
+  @media (max-width: 768px) {
+    width: 100%;
+  }
+`;
+
+export const RecentSortButton = styled(Button)`
+  @media (max-width: 768px) {
+    width: 100%;
+  }
+`;

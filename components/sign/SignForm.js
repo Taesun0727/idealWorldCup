@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const Form = styled.div`
+const StyleForm = styled.form`
   width: 500px;
   background: #fff;
   border-radius: 10px;
@@ -13,9 +13,9 @@ const Form = styled.div`
 
 const SignForm = ({ children }) => {
   return (
-    <Form>
+    <StyleForm onSubmit={onSubmit}>
       {children}
-    </Form>
+    </StyleForm>
   )
 }
 
