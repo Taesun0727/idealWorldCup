@@ -66,7 +66,7 @@ export const MyworldcupHeader = styled.div`
 `;
 
 export const MyworldcupBody = styled.div`
-  margin: 20px;
+  margin: 15px;
 `;
 
 const Button = styled.button`

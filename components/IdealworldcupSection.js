@@ -30,8 +30,8 @@ export default IdealworldcupSection;
 
 const IdealWorldCupWrapper = styled.div`
   display: inline-block;
-  width: 16.66666663%;
-  padding: 10px;
+  width: 16.455%;
+  padding: 2px;
 
   @media (max-width: 768px) {
     width: 45%;
