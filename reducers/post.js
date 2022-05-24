@@ -3,6 +3,7 @@ import produce from '../util/produce';
 export const initialState = {
   images: [],
   posts: [],
+  myposts: [],
   uploadImagesLoading: false,
   uploadImagesDone: false,
   uploadImagesError: false,
@@ -12,6 +13,9 @@ export const initialState = {
   loadPostLoading: false,
   loadPostDone: false,
   loadPostError: false,
+  loadMyPostLoading: false,
+  loadMyPostDone: false,
+  loadMyPostError: false,
 }
 
 export const UPLOAD_IMAGES_REQUEST = 'UPLOAD_IMAGES_REQUESE';
@@ -25,6 +29,10 @@ export const CREATE_WORLDCUP_FAILURE = 'CREATE_WORLDCUP_FAILURE';
 export const LOAD_POST_REQUEST = 'LOAD_POST_REQUESE';
 export const LOAD_POST_SUCCESS = 'LOAD_POST_SUCCESS';
 export const LOAD_POST_FAILURE = 'LOAD_POST_FAILURE';
+
+export const LOAD_MY_POST_REQUEST = 'LOAD_MY_POST_REQUESE';
+export const LOAD_MY_POST_SUCCESS = 'LOAD_MY_POST_SUCCESS';
+export const LOAD_MY_POST_FAILURE = 'LOAD_MY_POST_FAILURE';
 
 export const REMOVE_IMAGE = 'REMOVE_IMAGE';
 
@@ -72,6 +80,20 @@ const reducer = (state = initialState, action) => produce(state, (draft) => {
     case LOAD_POST_FAILURE:
       draft.loadPostLoading = false;
       draft.loadPostError = action.error;
+      break;
+    case LOAD_MY_POST_REQUEST:
+      draft.loadMyPostLoading = true;
+      draft.loadMyPostDone = false;
+      draft.loadMyPostError = null;
+      break;
+    case LOAD_MY_POST_SUCCESS:
+      draft.myposts = draft.myposts.concat(action.data);
+      draft.loadMyPostLoading = false;
+      draft.loadMyPostDone = true;
+      break;
+    case LOAD_MY_POST_FAILURE:
+      draft.loadMyPostLoading = false;
+      draft.loadMyPostError = action.error;
       break;
     case REMOVE_IMAGE:
       draft.images = draft.images.filter((v, i) => i !== action.data)

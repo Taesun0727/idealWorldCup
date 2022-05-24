@@ -9,8 +9,31 @@ import {
   CREATE_WORLDCUP_FAILURE,
   LOAD_POST_REQUEST,
   LOAD_POST_SUCCESS,
-  LOAD_POST_FAILURE
+  LOAD_POST_FAILURE,
+  LOAD_MY_POST_REQUEST,
+  LOAD_MY_POST_SUCCESS,
+  LOAD_MY_POST_FAILURE,
 } from '../reducers/post';
+
+function loadMyPostsAPI(lastId, userId) {
+  return axios.get(`/post/my?userId=${userId}?lastId=${lastId || 0}`)
+}
+
+function* loadMyPosts(action) {
+  try {
+    const result = yield call(loadMyPostsAPI, action.lastId, action.userId);
+    yield put({
+      type: LOAD_MY_POST_SUCCESS,
+      data: result.data
+    })
+  } catch (err) {
+    console.log(err);
+    yield put({
+      type: LOAD_MY_POST_FAILURE,
+      error: err.response.data,
+    })
+  }
+}
 
 function loadPostsAPI(lastId) {
   return axios.get(`/post?lastId=${lastId || 0}`)
@@ -83,10 +106,15 @@ function* watchUploadPosts() {
   yield takeLatest(LOAD_POST_REQUEST, loadPosts);
 }
 
+function* watchUploadMyPosts() {
+  yield takeLatest(LOAD_MY_POST_REQUEST, loadMyPosts);
+}
+
 export default function* postSaga() {
   yield all([
     fork(watchUploadImages),
     fork(watchUpcreateWorldcup),
     fork(watchUploadPosts),
+    fork(watchUploadMyPosts),
   ]);
 }

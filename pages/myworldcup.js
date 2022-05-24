@@ -6,11 +6,15 @@ import Link from "next/link"
 import IdealworldcupSection from "../components/IdealworldcupSection"
 import { useDispatch, useSelector } from 'react-redux';
 import Router from 'next/router'
-import { LOAD_POST_REQUEST } from '../reducers/post';
+import { LOAD_MY_POST_REQUEST } from '../reducers/post';
+import { LOAD_MY_INFO_REQUEST } from '../reducers/user';
+import wrapper from '../store/configureStore'
+import axios from "axios";
+import { END } from 'redux-saga'
 
 const myworldcup = () => {
   const dispatch = useDispatch();
-  const { posts } = useSelector((state) => state.post);
+  const { myposts } = useSelector((state) => state.post);
   const { me } = useSelector((state) => state.user);
 
   useEffect(() => {
@@ -18,8 +22,13 @@ const myworldcup = () => {
       alert('로그인이 필요합니다.')
       Router.replace('/signin');
     } else {
+      const userId = me.id
+      dispatch({
+        type: LOAD_MY_POST_REQUEST,
+        userId
+      })
     }
-  })
+  }, [])
 
   useEffect(() => {
     function onScroll() {
@@ -53,7 +62,7 @@ const myworldcup = () => {
         </HeaderDiv3>
       </MyworldcupHeader>
       <MyworldcupBody>
-        {/* {posts.map((post) => <IdealworldcupSection key={post.id} post={post}></IdealworldcupSection>)} */}
+        {myposts.map((post) => <IdealworldcupSection key={post.id} post={post}></IdealworldcupSection>)}
       </MyworldcupBody>
     </AppLayout>
   )
